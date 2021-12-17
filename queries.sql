@@ -28,10 +28,6 @@ WHERE weight_kg <= 17.3 and weight_kg >= 10.4;
 BEGIN;
 UPDATE animals
    SET species = 'unspecified';
-COMMIT;
-BEGIN;
-UPDATE animals
-   SET species = 'unspecified';
 ROLLBACK;
 
 BEGIN;
@@ -41,4 +37,20 @@ UPDATE animals
 UPDATE animals
    SET species = 'pokemon'
    WHERE name NOT LIKE '%mon%';
+COMMIT;
+
+BEGIN;
+DELETE FROM animals;
+ROLLBACK;
+
+BEGIN;
+DELETE FROM animals
+WHERE date_of_birth > '2022-01-01';
+SAVEPOINT delete_animals;
+UPDATE animals
+SET weight_kg = weight_kg * -1;
+ROLLBACK TO delete_animals;
+UPDATE animals
+SET weight_kg = weight_kg * -1
+WHERE weight_kg < 0;
 COMMIT;
