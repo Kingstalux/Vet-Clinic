@@ -68,17 +68,11 @@ WHERE neutered = true;
 SELECT SUM(escape_attempts) FROM animals
 WHERE neutered = false;
 
-SELECT MAX(weight_kg) FROM animals
-WHERE neutered = true;
+SELECT neutered, MAX(weight_kg) FROM animals
+GROUP BY neutered;
 
-SELECT MIN(weight_kg) FROM animals
-WHERE neutered = true;
-
-SELECT MAX(weight_kg) FROM animals
-WHERE neutered = false;
-
-SELECT MAX(weight_kg) FROM animals
-WHERE neutered = false;
+SELECT neutered, MIN(weight_kg) FROM animals
+GROUP BY neutered;
 
 SELECT AVG(escape_attempts) FROM animals
 WHERE date_of_birth > '1990-01-01' and date_of_birth < '2000-01-01';
